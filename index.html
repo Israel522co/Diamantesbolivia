@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Diamantes Bolivia | Recargas Free Fire</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #080b12;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #17102b);
+      padding: 22px 15px;
+      text-align: center;
+      border-bottom: 1px solid #303040;
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: bold;
+      color: #66e3ff;
+    }
+
+    .logo span {
+      color: #9d5cff;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #bfc3d0;
+    }
+
+    .hero {
+      padding: 35px 18px;
+      text-align: center;
+      background:
+        radial-gradient(circle at top, #25204b, transparent 55%);
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: #67e8f9;
+    }
+
+    .hero p {
+      color: #b8bdc9;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 900px;
+      margin: auto;
+      padding-bottom: 50px;
+    }
+
+    .section-title {
+      margin: 30px 0 18px;
+      font-size: 23px;
+    }
+
+    .packs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+    }
+
+    .pack {
+      background: #121722;
+      border: 1px solid #292f3e;
+      border-radius: 15px;
+      padding: 20px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .pack:hover {
+      transform: translateY(-3px);
+      border-color: #67e8f9;
+    }
+
+    .pack.selected {
+      border: 2px solid #67e8f9;
+      background: #151d2b;
+      box-shadow: 0 0 18px rgba(103,232,249,.15);
+    }
+
+    .diamond {
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    .pack h3 {
+      font-size: 19px;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      color: #67e8f9;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .form-box {
+      margin-top: 25px;
+      background: #111722;
+      border: 1px solid #292f3e;
+      border-radius: 17px;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #d8dbe4;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #353c4b;
+      background: #080d15;
+      color: white;
+      outline: none;
+      margin-bottom: 18px;
+      font-size: 16px;
+    }
+
+    input:focus, select:focus {
+      border-color: #67e8f9;
+    }
+
+    .summary {
+      background: #0b111b;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 10px 0 20px;
+      line-height: 1.8;
+    }
+
+    .total {
+      font-size: 23px;
+      color: #67e8f9;
+      font-weight: bold;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg, #00c6ff, #8b5cf6);
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.01);
+    }
+
+    .payment {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .payment label {
+      border: 1px solid #343b4a;
+      border-radius: 10px;
+      padding: 13px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: normal;
+    }
+
+    .payment input {
+      width: auto;
+      margin: 0 5px 0 0;
+    }
+
+    .info {
+      margin-top: 25px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .info-card {
+      background: #111722;
+      padding: 17px;
+      border-radius: 13px;
+      border: 1px solid #252c3a;
+    }
+
+    .info-card h3 {
+      margin-bottom: 6px;
+    }
+
+    .info-card p {
+      color: #b7bdc9;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid #252a35;
+      color: #888f9d;
+      font-size: 14px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-box {
+      background: #111722;
+      border: 1px solid #343b4c;
+      border-radius: 18px;
+      padding: 25px;
+      width: 100%;
+      max-width: 430px;
+      text-align: center;
+    }
+
+    .success {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    .order-number {
+      color: #67e8f9;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .close {
+      margin-top: 15px;
+      background: #252c3a;
+    }
+
+    @media (max-width: 450px) {
+      .hero h1 {
+        font-size: 27px;
+      }
+
+      .packs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">💎 Diamantes <span>Bolivia</span></div>
+  <p>Recargas rápidas y sencillas para Free Fire</p>
+</header>
+
+<section class="hero">
+  <h1>Recarga tus <span>diamantes</span></h1>
+  <p>
+    Selecciona tu paquete, coloca tu ID de jugador
+    y envía tu pedido.
+  </p>
+</section>
+
+<main class="container">
+
+  <h2 class="section-title">💎 Elige tu recarga</h2>
+
+  <div class="packs">
+
+    <div class="pack" data-diamonds="100" data-price="10">
+      <div class="diamond">💎</div>
+      <h3>100 💎</h3>
+      <div class="price">Bs. 10</div>
+    </div>
+
+    <div class="pack" data-diamonds="310" data-price="28">
+      <div class="diamond">💎</div>
+      <h3>310 💎</h3>
+      <div class="price">Bs. 28</div>
+    </div>
+
+    <div class="pack" data-diamonds="520" data-price="45">
+      <div class="diamond">💎</div>
+      <h3>520 💎</h3>
+      <div class="price">Bs. 45</div>
+    </div>
+
+    <div class="pack" data-diamonds="1060" data-price="85">
+      <div class="diamond">💎</div>
+      <h3>1.060 💎</h3>
+      <div class="price">Bs. 85</div>
+    </div>
+
+    <div class="pack" data-diamonds="2180" data-price="165">
+      <div class="diamond">💎</div>
+      <h3>2.180 💎</h3>
+      <div class="price">Bs. 165</div>
+    </div>
+
+    <div class="pack" data-diamonds="5600" data-price="390">
+      <div class="diamond">💎</div>
+      <h3>5.600 💎</h3>
+      <div class="price">Bs. 390</div>
+    </div>
+
+  </div>
+
+  <div class="form-box">
+
+    <h2 class="section-title">🎮 Datos del jugador</h2>
+
+    <label for="playerId">ID de Free Fire</label>
+
+    <input
+      type="text"
+      id="playerId"
+      placeholder="Ejemplo: 123456789"
+      inputmode="numeric"
+    >
+
+    <label for="nickname">Nombre del jugador (opcional)</label>
+
+    <input
+      type="text"
+      id="nickname"
+      placeholder="Tu nombre en Free Fire"
+    >
+
+    <h3 class="section-title">💳 Método de pago</h3>
+
+    <div class="payment">
+
+      <label>
+        <input type="radio" name="payment" value="QR" checked>
+        📱 QR
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="Transferencia">
+        🏦 Transferencia
+      </label>
+
+      <label>
+        <input type="radio" name="payment" value="Otro">
+        💵 Otro
+      </label>
+
+    </div>
+
+    <div class="summary">
+
+      <strong>Resumen del pedido</strong>
+
+      <p>
+        Diamantes:
+        <span id="summaryDiamonds">No seleccionado</span>
+      </p>
+
+      <p>
+        Precio:
+        <span id="summaryPrice">Bs. 0</span>
+      </p>
+
+      <p class="total">
+        Total: <span id="total">Bs. 0</span>
+      </p>
+
+    </div>
+
+    <button class="btn" id="buyButton">
+      🚀 CONTINUAR CON EL PEDIDO
+    </button>
+
+  </div>
+
+  <div class="info">
+
+    <div class="info-card">
+      <h3>⚡ Recarga rápida</h3>
+      <p>
+        Realiza tu pedido y recibe información sobre el estado
+        de tu recarga.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h3>🔒 Compra segura</h3>
+      <p>
+        Nunca compartas tu contraseña de Free Fire o de Facebook.
+        Para una recarga solo debes proporcionar los datos necesarios.
+      </p>
+    </div>
+
+    <div class="info-card">
+      <h3>🇧🇴 Para Bolivia</h3>
+      <p>
+        Precios expresados en bolivianos (Bs).
+      </p>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Diamantes Bolivia · Todos los derechos reservados
+</footer>
+
+<!-- VENTANA DE PEDIDO -->
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <div class="success">✅</div>
+
+    <h2>Pedido preparado</h2>
+
+    <p class="order-number" id="orderNumber"></p>
+
+    <p id="orderDetails"></p>
+
+    <button class="btn" id="whatsappButton">
+      💬 Enviar pedido por WhatsApp
+    </button>
+
+    <button class="btn close" id="closeButton">
+      Cerrar
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+  const packs = document.querySelectorAll(".pack");
+
+  let selectedPack = null;
+
+  packs.forEach(pack => {
+
+    pack.addEventListener("click", () => {
+
+      packs.forEach(p => p.classList.remove("selected"));
+
+      pack.classList.add("selected");
+
+      selectedPack = {
+        diamonds: pack.dataset.diamonds,
+        price: pack.dataset.price
+      };
+
+      document.getElementById("summaryDiamonds").textContent =
+        selectedPack.diamonds + " 💎";
+
+      document.getElementById("summaryPrice").textContent =
+        "Bs. " + selectedPack.price;
+
+      document.getElementById("total").textContent =
+        "Bs. " + selectedPack.price;
+
+    });
+
+  });
+
+
+  const buyButton = document.getElementById("buyButton");
+
+  buyButton.addEventListener("click", () => {
+
+    const playerId =
+      document.getElementById("playerId").value.trim();
+
+    const nickname =
+      document.getElementById("nickname").value.trim();
+
+    const payment =
+      document.querySelector('input[name="payment"]:checked').value;
+
+
+    if (!selectedPack) {
+      alert("Selecciona primero un paquete de diamantes.");
+      return;
+    }
+
+    if (!playerId) {
+      alert("Introduce tu ID de Free Fire.");
+      return;
+    }
+
+
+    const order =
+      "DB-" + Math.floor(100000 + Math.random() * 900000);
+
+
+    document.getElementById("orderNumber").textContent =
+      "Pedido #" + order;
+
+
+    document.getElementById("orderDetails").innerHTML = `
+      <strong>${selectedPack.diamonds} 💎</strong><br>
+      ID: ${playerId}<br>
+      ${nickname ? "Jugador: " + nickname + "<br>" : ""}
+      Pago: ${payment}<br>
+      Total: Bs. ${selectedPack.price}
+    `;
+
+
+    document.getElementById("modal").style.display = "flex";
+
+
+    const message =
+      `💎 NUEVO PEDIDO - DIAMANTES BOLIVIA%0A%0A` +
+      `Pedido: #${order}%0A` +
+      `ID de jugador: ${playerId}%0A` +
+      `${nickname ? "Jugador: " + nickname + "%0A" : ""}` +
+      `Diamantes: ${selectedPack.diamonds} 💎%0A` +
+      `Precio: Bs. ${selectedPack.price}%0A` +
+      `Método de pago: ${payment}`;
+
+
+    document.getElementById("whatsappButton").onclick = () => {
+
+      /*
+       * CAMBIA ESTE NÚMERO POR TU WHATSAPP.
+       * Incluye código de país.
+       * Bolivia = 591
+       */
+
+      const telefono = "59170000000";
+
+      window.open(
+        `https://wa.me/${telefono}?text=${message}`,
+        "_blank"
+      );
+
+    };
+
+  });
+
+
+  document.getElementById("closeButton").onclick = () => {
+    document.getElementById("modal").style.display = "none";
+  };
+
+</script>
+
+</body>
+</html>
